@@ -18,13 +18,13 @@ const getUUID = function () {
 }
 
 const getDownload = function () {
-    const result = path.join(os.tmpdir(), "/ocr_image_" + "_" + getUUID() + ".png");
+    const result = path.join(os.tmpdir(), "/ocr_image_" + getUUID() + ".png");
     return result;
 }
 
 const url = 'http://oap63jhn1.bkt.clouddn.com/ee_20160720154323.png';
 
-var wget = function (callback) {
+const wget = function (callback) {
     const options = {
         output: getDownload()
     }
@@ -33,13 +33,13 @@ var wget = function (callback) {
             callback(err, null);
             return
         }
-        console.log(options.output)
+        console.log("output=" + options.output)
         callback(null, options.output);
 
     })
 }
 
-var ocr = function (file, callback) {
+const ocr = function (file, callback) {
     const options = {
         l: 'chi_sim',
         psm: 6
@@ -49,15 +49,16 @@ var ocr = function (file, callback) {
             callback(err, null);
             return;
         } else {
-            callback(null, file, text);
+            callback(null, text);
         }
     });
 }
 
 router.get('/', function (req, res) {
-    async.waterfall([wget, ocr], function (err, file, text) {
+    async.waterfall([wget, ocr], function (err, text) {
         if (err) {
-            console.error.bind(console, err);
+            console.error(err);
+            return;
         }
         console.log(text)
         res.send(text);

@@ -1,16 +1,18 @@
 /**
  * Created by ceres on 16-8-14.
  */
-/**
- * Created by jupiter on 16-7-22.
- */
-var needle = require('needle');
-var fs = require('fs');
-var debug = require('debug')('aaa')
-var asycn = require('async');
-var path = require('path');
-var os = require('os');
-var uuid = require('node-uuid');
+
+var express = require('express');
+var router = express.Router();
+
+const needle = require('needle');
+const fs = require('fs');
+const debug = require('debug')('aaa')
+const asycn = require('async');
+const path = require('path');
+const os = require('os');
+const uuid = require('node-uuid');
+const url = 'http://oap63jhn1.bkt.clouddn.com/20160722_110056.jpg';
 
 const getUUID = function () {
     const result = uuid.v4();
@@ -18,13 +20,12 @@ const getUUID = function () {
 }
 
 const getDownload = function () {
-    const result = path.join(os.tmpdir(), "/camcard_image_" + "_" + getUUID() + ".png");
+    const result = path.join(os.tmpdir(), "/camcard_image_" + getUUID() + ".png");
+
     return result;
 }
 
-const url = 'http://oap63jhn1.bkt.clouddn.com/20160722_110056.jpg';
-
-var wget = function (callback) {
+const wget = function (callback) {
     const options = {
         output: getDownload()
     }
@@ -40,17 +41,6 @@ var wget = function (callback) {
 }
 
 
-var data = {
-    upfile: {
-        file: getDownload(),
-        type: 'file',
-        content_type: 'image/png'
-    }
-}
-
-const options = {
-    multipart: true
-}
 /**
  * ?user=lin.peng@all-pay.com.cn&pass=HFD6RGWPSRN59MD6&lang=524287
  *
@@ -58,27 +48,36 @@ const options = {
  pass: 'HFD6RGWPSRN59MD6',
  lang: '524287',
  */
-const getCamcardImageText = function (callback) {
+const getCamcardImageText = function (imageFile, callback) {
+    const data = {
+        upfile: {
+            file: imageFile,
+            type: 'file',
+            content_type: 'image/png'
+        }
+    }
+    const options = {
+        multipart: true
+    }
     needle.post('http://bcr2.intsig.net/BCRService/BCR_VCF2?user=lin.peng@all-pay.com.cn&pass=HFD6RGWPSRN59MD6&lang=524287', data, options, function (err, resp, body) {
         if (err) {
-            console.error.bind(console, err);
+            console.error(err);
             callback(err, null);
         }
     }).on('readable', function () {
         var node;
         while (node = this.read()) {
-            console.log('got data: ', node.toString());
             callback(null, node.toString())
         }
     });
-
-}
-
-asycn.waterfall([wget, getCamcardImageText], function (err, result) {
-    if (err) {
-        console.error.bind(console, err);
-
-    }
-    console.log(result);
-
-})
+};
+router.get('/', function (req, res) {
+    asycn.waterfall([wget, getCamcardImageText], function (err, result) {
+        if (err) {
+            console.error.bind(console, err);
+        }
+        console.log(result);
+        res.send(result);
+    })
+});
+module.exports = router;

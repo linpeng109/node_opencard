@@ -33,7 +33,13 @@ module.exports = function (mongoose) {
     };
     User.findById = function (id, callback) {
         const query = User.find({});
-        query.where('')
+        query.find(Id)
+    }
+    User.findOneByName = function (userName, callback) {
+        const query = User.find({});
+        query.findOne({userName: userName})
+        query.exec(callback)
+
     }
     return {User: User};
 };
