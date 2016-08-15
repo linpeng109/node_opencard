@@ -11,7 +11,7 @@ router.get('/', function (req, res) {
     var result={}
     User.findAll(function (err,result) {
         if(err){
-            console.error.bind(console,err);
+            console.error(err);
         }
         res.jsonp(result)
     })

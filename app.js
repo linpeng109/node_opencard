@@ -18,6 +18,7 @@ var qiniu = require('./routes/qiniu');
 var list = require('./routes/list');
 var ocr = require('./routes/ocr');
 var camcard = require('./routes/camcard');
+var passport = require('./routes/passport');
 
 var app = express();
 
@@ -38,6 +39,7 @@ app.use('/list', list);
 app.use('/qiniu', qiniu);
 app.use('/ocr', ocr);
 app.use('/camcard', camcard);
+app.use('/passport', passport);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
