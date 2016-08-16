@@ -36,7 +36,7 @@ router.get('/', function (req, res) {
     var key = req.query.key;
     var token = getToken(bucket, key);
     console.log(token);
-    res.send(token);
+    res.jsonp(token);
 })
 
 module.exports = router;

@@ -4,17 +4,16 @@
 const express = require('express');
 const router = express.Router();
 
-const User = global.dao.User;
-router.get('/', function (req, res) {
-    const my = User.findOneByName('c5ce0a0a-3337-43ed-852c-1015baecc092', function (err, result) {
-        if (err) {
-            console.error(err);
-            return;
-        }
-        console.log(result.userName);
-        console.log(result.passWord);
-    })
+const passportLocal = require('../public/script/passportLocal');
 
+router.get('/', passportLocal.authenticate('local', {}), function (req, res) {
+    res.send('welcom to passportlocal page')
 });
+
+router.get('/login', function (req, res) {
+    const userName = req.query.userName;
+    const passWord = req.query.passWord;
+
+})
 
 module.exports = router;

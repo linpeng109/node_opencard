@@ -77,7 +77,7 @@ router.get('/', function (req, res) {
             console.error.bind(console, err);
         }
         console.log(result);
-        res.send(result);
+        res.jsonp(result);
     })
 });
 module.exports = router;

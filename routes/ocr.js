@@ -61,7 +61,7 @@ router.get('/', function (req, res) {
             return;
         }
         console.log(text)
-        res.send(text);
+        res.jsonp(text);
     })
 
 })
