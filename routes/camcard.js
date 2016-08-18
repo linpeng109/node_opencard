@@ -67,7 +67,7 @@ var getCamcardImageText = function (imageFile, callback) {
     }).on('readable', function () {
         var node;
         while (node = this.read()) {
-            callback(null, node.toString())
+            callback(null, node.toString());
         }
     });
 };

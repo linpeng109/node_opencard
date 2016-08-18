@@ -6,21 +6,30 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var users = require('./routes/users');
-/**
- * MongoDB 's DAO module
- */
-var mongoose = require('./script/mongoose');
-var dao = require('./script/dao')(mongoose);
-global.dao = dao;
-
-var mongoose = require('./script/mongoose');
 var qiniu = require('./routes/qiniu');
 var list = require('./routes/list');
 var ocr = require('./routes/ocr');
 var camcard = require('./routes/camcard');
-var passport = require('./routes/passport');
+var passports = require('./routes/passport');
+var failure = require('./routes/failure');
+var success = require('./routes/success');
 
+//mongoDB config
+var mongoose = require('./lib/mongoose');
+var dao = require('./lib/dao')(mongoose);
+global.dao = dao;
+
+//passport config
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+passport.use(new LocalStrategy(dao.User.authenticate()));
+passport.serializeUser(dao.User.serializeUser());
+passport.deserializeUser(dao.User.deserializeUser());
+
+//app
 var app = express();
+app.use(passport.initialize());
+app.use(passport.session());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -34,12 +43,15 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//routes
 app.use('/', routes);
 app.use('/list', list);
 app.use('/qiniu', qiniu);
 app.use('/ocr', ocr);
 app.use('/camcard', camcard);
-app.use('/passport', passport);
+app.use('/passport', passports);
+app.use('/failure', failure);
+app.use('/success', success);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
