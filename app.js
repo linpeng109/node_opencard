@@ -9,11 +9,11 @@ var users = require('./routes/users');
 /**
  * MongoDB 's DAO module
  */
-var mongoose = require('./public/script/mongoose');
-var dao = require('./public/script/dao')(mongoose);
+var mongoose = require('./script/mongoose');
+var dao = require('./script/dao')(mongoose);
 global.dao = dao;
 
-var mongoose = require('./public/script/mongoose');
+var mongoose = require('./script/mongoose');
 var qiniu = require('./routes/qiniu');
 var list = require('./routes/list');
 var ocr = require('./routes/ocr');

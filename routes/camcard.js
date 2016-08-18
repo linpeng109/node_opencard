@@ -5,28 +5,28 @@
 var express = require('express');
 var router = express.Router();
 
-const needle = require('needle');
-const fs = require('fs');
-const debug = require('debug')('aaa')
-const asycn = require('async');
-const path = require('path');
-const os = require('os');
-const uuid = require('node-uuid');
-const url = 'http://oap63jhn1.bkt.clouddn.com/20160722_110056.jpg';
+var needle = require('needle');
+var fs = require('fs');
+var debug = require('debug')('aaa')
+var asycn = require('async');
+var path = require('path');
+var os = require('os');
+var uuid = require('node-uuid');
+var url = 'http://oap63jhn1.bkt.clouddn.com/20160722_110056.jpg';
 
-const getUUID = function () {
-    const result = uuid.v4();
+var getUUID = function () {
+    var result = uuid.v4();
     return result;
 }
 
-const getDownload = function () {
-    const result = path.join(os.tmpdir(), "/camcard_image_" + getUUID() + ".png");
+var getDownload = function () {
+    var result = path.join(os.tmpdir(), "/camcard_image_" + getUUID() + ".png");
 
     return result;
 }
 
-const wget = function (callback) {
-    const options = {
+var wget = function (callback) {
+    var options = {
         output: getDownload()
     }
     needle.get(url, options, function (err, url, response, body) {
@@ -48,15 +48,15 @@ const wget = function (callback) {
  pass: 'HFD6RGWPSRN59MD6',
  lang: '524287',
  */
-const getCamcardImageText = function (imageFile, callback) {
-    const data = {
+var getCamcardImageText = function (imageFile, callback) {
+    var data = {
         upfile: {
             file: imageFile,
             type: 'file',
             content_type: 'image/png'
         }
     }
-    const options = {
+    var options = {
         multipart: true
     }
     needle.post('http://bcr2.intsig.net/BCRService/BCR_VCF2?user=lin.peng@all-pay.com.cn&pass=HFD6RGWPSRN59MD6&lang=524287', data, options, function (err, resp, body) {

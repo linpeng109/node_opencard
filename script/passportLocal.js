@@ -1,11 +1,11 @@
 /**
  * Created by Mars on 2016/8/16.
  */
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 
 passport.use(new LocalStrategy(function (username, password, done) {
-    const User = global.User;
+    var User = global.User;
     User.findOne({userName: username}, function (err, user) {
         if (err) {
             done(err, null);
@@ -25,7 +25,7 @@ passport.serializeUser(function (user, callback) {
 });
 
 passport.deserializeUser(function (id, cb) {
-    const User = global.User;
+    var User = global.User;
     User.findOne({userName: id}, function (err, user) {
         if (err) {
             console.error(err);

@@ -1,18 +1,18 @@
 /**
  * Created by Mars on 2016/8/15.
  */
-const express = require('express');
-const router = express.Router();
+var express = require('express');
+var router = express.Router();
 
-const passportLocal = require('../public/script/passportLocal');
+var passportLocal = require('./passportLocal');
 
-router.get('/', passportLocal.authenticate('local', {}), function (req, res) {
+router.get('/', function (req, res) {
     res.send('welcom to passportlocal page')
 });
 
 router.get('/login', function (req, res) {
-    const userName = req.query.userName;
-    const passWord = req.query.passWord;
+    var userName = req.query.userName;
+    var passWord = req.query.passWord;
 
 })
 
