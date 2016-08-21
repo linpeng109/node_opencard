@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="11d199c1-1742-4ff5-8d01-740b01f28b86" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/list.js" afterPath="$PROJECT_DIR$/routes/list.js" />
-    </list>
+    <list default="true" id="11d199c1-1742-4ff5-8d01-740b01f28b86" name="Default" comment="" />
     <ignored path="node_opencard.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -394,16 +392,16 @@
       <workItem from="1471531604781" duration="300000" />
       <workItem from="1471532075328" duration="1269000" />
       <workItem from="1471662716493" duration="13719000" />
-      <workItem from="1471765391037" duration="1544000" />
+      <workItem from="1471765391037" duration="2015000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="86597000" />
+    <option name="totallyTimeSpent" value="87068000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1227608" sideWeight="0.44251627" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1227608" sideWeight="0.55417955" order="0" side_tool="false" content_ui="combo" />
