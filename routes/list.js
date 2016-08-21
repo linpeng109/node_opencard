@@ -40,7 +40,21 @@ router.get('/findAll', function (req, res, next) {
             }
             res.jsonp(docs)
         })
-})
+});
+
+/**
+ * 计数查询
+ */
+router.get('/count', function (req, res, next) {
+    var User = global.dao.User;
+    User.count({}, function (err, result) {
+        if (err) {
+            console.error(err);
+        } else {
+            res.jsonp(result);
+        }
+    })
+});
 
 /**
  * 删除
