@@ -1,4 +1,4 @@
-node_modules
-coverage
-dist
-.idea/*.*
+node_modules/
+coverage/
+dist/
+.idea/
