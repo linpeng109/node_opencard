@@ -1,38 +1,21 @@
 var express = require('express');
-var passport = require('passport');
+var passportLocal = require('../lib/passportLocal');
 var router = express.Router();
 
 router.get('/', function (req, res) {
     res.render('index', {user: req.user});
 });
 
-router.get('/register', function (req, res) {
-    res.render('register', {});
+router.get('/login', passportLocal.authenticate('local'), function (req, res) {
+    var result = "req.isAuthenticated = " + req.isAuthenticated()
+    console.log("req.isAuthenticated = " + result)
+    res.jsonp({result: result});
 });
 
-router.post('/register', function (req, res) {
-    var dao = global.dao;
-    var User = dao.User;
-    var user = new User({
-        userName: req.body.username,
-        passWord: req.body.password
-    })
-    User.insert(user, function (err, account) {
-        if (err) {
-            console.error(err);
-        }
-        passport.authenticate('local')(req, res, function () {
-            res.redirect('/');
-        });
-    });
-});
-
-router.get('/login', function (req, res) {
-    res.render('login', {user: req.user});
-});
-
-router.post('/login', passport.authenticate('local'), function (req, res) {
-    res.redirect('/');
+router.post('/login', passportLocal.authenticate('local'), function (req, res) {
+    var result = "req.isAuthenticated = " + JSON.stringify(req.session.passport);
+    console.log("req.isAuthenticated = " + result)
+    res.jsonp({result: result});
 });
 
 router.get('/logout', function (req, res) {

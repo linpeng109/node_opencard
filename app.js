@@ -19,12 +19,8 @@ var mongoose = require('./lib/mongoose');
 var dao = require('./lib/dao')(mongoose);
 global.dao = dao;
 
-//passport config
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-passport.use(new LocalStrategy(dao.User.authenticate()));
-passport.serializeUser(dao.User.serializeUser());
-passport.deserializeUser(dao.User.deserializeUser());
+//passportLocal config
+var passport = require('./lib/passportLocal');
 
 //app
 var app = express();
@@ -49,7 +45,7 @@ app.use('/list', list);
 app.use('/qiniu', qiniu);
 app.use('/ocr', ocr);
 app.use('/camcard', camcard);
-app.use('/passport', passports);
+app.use('/passportLocal', passports);
 app.use('/failure', failure);
 app.use('/success', success);
 
