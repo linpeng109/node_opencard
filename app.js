@@ -48,6 +48,7 @@ app.use('/camcard', camcard);
 app.use('/passportLocal', passports);
 app.use('/failure', failure);
 app.use('/success', success);
+app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
