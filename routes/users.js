@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var passportLocal = require('../lib/passportLocal');
 
 /* GET users listing. */
 router.get('/',

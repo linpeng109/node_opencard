@@ -13,6 +13,7 @@ var camcard = require('./routes/camcard');
 var passports = require('./routes/passport');
 var failure = require('./routes/failure');
 var success = require('./routes/success');
+var authentication = require('./routes/authentication');
 
 //mongoDB config
 var mongoose = require('./lib/mongoose');
@@ -49,6 +50,7 @@ app.use('/passportLocal', passports);
 app.use('/failure', failure);
 app.use('/success', success);
 app.use('/users', users);
+app.use('/authentication',authentication);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -80,6 +82,5 @@ app.use(function (err, req, res, next) {
         error: {}
     });
 });
-
 
 module.exports = app;

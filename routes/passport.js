@@ -6,36 +6,37 @@ router.get('/', function (req, res) {
     res.render('index', {user: req.user});
 });
 
-router.get('/login', passportLocal.authenticate('local',
-    function (err, result) {
-        if (err) {
-            console.error(err);
-            return;
-        }
-        else {
-            console.log("result = " + JSON.stringify(result));
-            return result;
-        }
-    }),
-    function (req, res) {
-        console.log("a=" + req.isAuthenticated());
-        var result = JSON.stringify(req.session.passport);
-        console.log("result =" + JSON.stringify(result))
-        res.jsonp({result: result});
-    });
-//
-// router.post('/login', passportLocal.authenticate('local'), function (req, res) {
-//     var result = JSON.stringify(req.session.passport);
-//     console.log("result =" + result)
-//     res.jsonp({result: result});
-// });
+router.get('/login',
+    passportLocal.authenticate('local',
+        function (err, isAuth, result) {
+            if (err) {
+                console.error(err);
+            } else {
+                console.log("isAuth = " + JSON.stringify(isAuth));
+                console.log("result = " + JSON.stringify(result));
+            }
+        })
+);
+
+router.get('/check', require('connect-ensure-login').ensureLoggedIn, function (req, res) {
+    res.redirect('/success');
+
+})
 
 router.get('/logout', function (req, res) {
     req.logout();
     res.redirect('/');
 });
 
-router.get('/ping', function (req, res) {
+var auth = function (req, res, next) {
+    if (req.isAuthenticated()) {
+        next();
+    } else {
+        res.redirect('/failure');
+    }
+}
+
+router.get('/ping', auth, function (req, res) {
     res.status(200).send("pong!");
 });
 
