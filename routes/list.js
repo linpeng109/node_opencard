@@ -32,8 +32,9 @@ router.get('/findByPage', function (req, res, next) {
 router.get('/findAll', function (req, res, next) {
     var User = global.dao.User
     User.find({})
+        .select('_id userName passWord department')
         .skip(0)
-        .limit(20)
+        .limit(200)
         .exec(function (err, docs) {
             if (err) {
                 console.error(err);
