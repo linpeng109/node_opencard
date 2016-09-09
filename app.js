@@ -14,6 +14,7 @@ var passports = require('./routes/passport');
 var failure = require('./routes/failure');
 var success = require('./routes/success');
 var authentication = require('./routes/authentication');
+var insert = require('./routes/insert');
 
 //mongoDB config
 var mongoose = require('./lib/mongoose');
@@ -50,7 +51,8 @@ app.use('/passportLocal', passports);
 app.use('/failure', failure);
 app.use('/success', success);
 app.use('/users', users);
-app.use('/authentication',authentication);
+app.use('/authentication', authentication);
+app.use('/insert', insert);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

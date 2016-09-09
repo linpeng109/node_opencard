@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "async": "^2.0.1",
+    "bluebird": "^3.4.6",
     "body-parser": "~1.15.1",
     "connect-ensure-login": "^0.1.1",
     "cookie-parser": "~1.4.3",
@@ -14,8 +15,9 @@
     "express": "~4.13.4",
     "hbs": "~4.0.0",
     "jsonwebtoken": "^7.1.9",
-    "mongoose": "^4.5.10",
+    "mongoose": "^4.6.0",
     "morgan": "~1.7.0",
+    "mpromise": "^0.5.5",
     "needle": "^1.1.0",
     "node-tesseract": "^0.2.7",
     "node-uuid": "^1.4.7",
@@ -25,7 +27,8 @@
     "passport-local-mongoose": "^4.0.0",
     "path": "^0.12.7",
     "qiniu": "^6.1.11",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "winston": "^2.2.0"
   },
   "devDependencies": {
     "babel-core": "^5.5.0",

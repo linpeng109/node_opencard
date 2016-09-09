@@ -16,13 +16,13 @@ router.get('/findByPage', function (req, res, next) {
     User.find({})
         .skip(pageSize * (pageNum - 1))
         .limit(pageSize)
-        .exec(function (err, docs) {
-            if (err) {
-                console.error(err);
-                res.redirect('/failure')
-                return;
-            }
+        .exec()
+        .then(function (docs) {
             res.jsonp(docs);
+        })
+        .catch(function (err) {
+            console.error(err);
+            res.redirect('/failure');
         })
 });
 
@@ -31,16 +31,17 @@ router.get('/findByPage', function (req, res, next) {
  */
 router.get('/findAll', function (req, res, next) {
     var User = global.dao.User
-    User.find({})
+    var promise = User.find({})
         .select('_id userName passWord department')
         .skip(0)
-        .limit(200)
-        .exec(function (err, docs) {
-            if (err) {
-                console.error(err);
-            }
-            res.jsonp(docs)
+        .limit(20000)
+        .exec()
+        .then(function (result) {
+            res.jsonp(result)
         })
+        .catch(function (err) {
+            console.error(err)
+        });
 });
 
 /**

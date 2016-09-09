@@ -11,8 +11,8 @@ router.get('/', function (req, res) {
 });
 
 router.get('/login', function (req, res) {
-    var username = req.query.username;
-    var password = req.query.password;
+    var username = req.query.username || req.body.username;
+    var password = req.query.password || req.body.password;
 
     var User = global.dao.User;
     User.findOne({
