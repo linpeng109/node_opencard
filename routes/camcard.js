@@ -40,7 +40,6 @@ var wget = function (callback) {
     })
 }
 
-
 /**
  * ?user=lin.peng@all-pay.com.cn&pass=HFD6RGWPSRN59MD6&lang=524287
  *

@@ -16,20 +16,29 @@ var success = require('./routes/success');
 var authentication = require('./routes/authentication');
 var insert = require('./routes/insert');
 
-//mongoDB config
+/**
+ * mongoDB config
+ */
 var mongoose = require('./lib/mongoose');
 var dao = require('./lib/dao')(mongoose);
 global.dao = dao;
 
-//passportLocal config
+/**
+ * passportLocal config
+ */
+
 var passport = require('./lib/passportLocal');
 
-//app
+/**
+ * app
+ */
 var app = express();
 app.use(passport.initialize());
 app.use(passport.session());
 
-// view engine setup
+/**
+ * view engine setup
+ */
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
@@ -41,7 +50,9 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//routes
+/**
+ * routes config
+ */
 app.use('/', routes);
 app.use('/list', list);
 app.use('/qiniu', qiniu);
@@ -54,7 +65,9 @@ app.use('/users', users);
 app.use('/authentication', authentication);
 app.use('/insert', insert);
 
-// catch 404 and forward to error handler
+/**
+ * catch 404 and forward to error handler
+ */
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
